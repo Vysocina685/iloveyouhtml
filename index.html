@@ -395,7 +395,7 @@ setTimeout(() => {
     });
   }
 
-// Po 1 sekundě zmizí modré texty a objeví se "i love you" v zlaté
+// Po 2.5 sekundách zmizí modré texty a objeví se "i love you" v zlaté
 setTimeout(() => {
     jokeParticles = [];
     ofcParticles = [];
@@ -421,12 +421,7 @@ setTimeout(() => {
             target: t
         });
     }
-    // Disappear after 2 seconds
-    setTimeout(() => {
-        iLoveYouParticles = [];
-        crownParticles = [];
-    }, 2000);
-}, 1000);
+}, 2500);
 }, 4000);
 
 window.addEventListener('resize', () => {
