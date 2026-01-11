@@ -395,33 +395,38 @@ setTimeout(() => {
     });
   }
 
-  // Po 1 sekundě zmizí modré texty a objeví se "i love you" v zlaté
-  setTimeout(() => {
+// Po 1 sekundě zmizí modré texty a objeví se "i love you" v zlaté
+setTimeout(() => {
     jokeParticles = [];
     ofcParticles = [];
     heartParticles = [];
     sParticles = [];
     for (let i = 0; i < iLoveYouCount; i++) {
-      const t = iLoveYouPoints[Math.floor(Math.random() * iLoveYouPoints.length)];
-      iLoveYouParticles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: 0, vy: 0,
-        size: Math.random() * 1.6 + 0.6,
-        target: t
-      });
+        const t = iLoveYouPoints[Math.floor(Math.random() * iLoveYouPoints.length)];
+        iLoveYouParticles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: 0, vy: 0,
+            size: Math.random() * 1.6 + 0.6,
+            target: t
+        });
     }
     for (let i = 0; i < crownCount; i++) {
-      const t = crownPoints[Math.floor(Math.random() * crownPoints.length)];
-      crownParticles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: 0, vy: 0,
-        size: Math.random() * 1.6 + 0.6,
-        target: t
-      });
+        const t = crownPoints[Math.floor(Math.random() * crownPoints.length)];
+        crownParticles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: 0, vy: 0,
+            size: Math.random() * 1.6 + 0.6,
+            target: t
+        });
     }
-  }, 1000);
+    // Disappear after 2 seconds
+    setTimeout(() => {
+        iLoveYouParticles = [];
+        crownParticles = [];
+    }, 2000);
+}, 1000);
 }, 4000);
 
 window.addEventListener('resize', () => {
