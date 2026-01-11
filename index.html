@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart with Rainbow S 🌈</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: #111;
+  }
+  canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let heartParticles = [];
+let sParticles = [];
+let jokeParticles = [];
+let ofcParticles = [];
+let iLoveYouParticles = [];
+let crownParticles = [];
+
+const heartPoints = [];
+const sPoints = [];
+const jokePoints = [];
+const ofcPoints = [];
+const iLoveYouPoints = [];
+const crownPoints = [];
+
+const heartCount = 2000;
+const sCount = 1000;
+const jokeCount = 600;
+const ofcCount = 1400;
+const iLoveYouCount = 5000;
+const crownCount = 1500;
+
+/* ===== SRDCE ===== */
+function createHeartPoints() {
+  heartPoints.length = 0;
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  const scale = Math.min(canvas.width, canvas.height) / 25;
+
+  for (let t = 0; t < Math.PI * 2; t += 0.02) {
+    const x = 16 * Math.pow(Math.sin(t), 3);
+    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t)
+            - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+    heartPoints.push({
+      x: cx + x * scale,
+      y: cy - (y + 1) * scale
+    });
+  }
+}
+
+/* ===== PÍSMENO S ===== */
+function createSPoints() {
+  sPoints.length = 0;
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2 + 50;
+  const scale = Math.min(canvas.width, canvas.height) / 250;
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = 200;
+  tempCanvas.height = 200;
+  const tctx = tempCanvas.getContext('2d');
+
+  tctx.fillStyle = 'white';
+  tctx.font = 'bold 160px Arial';
+  tctx.textAlign = 'center';
+  tctx.textBaseline = 'middle';
+  tctx.fillText('S', 100, 100);
+
+  const data = tctx.getImageData(0, 0, 200, 200).data;
+  for (let y = 0; y < 200; y += 2) {
+    for (let x = 0; x < 200; x += 2) {
+      if (data[(y * 200 + x) * 4 + 3] > 128) {
+        sPoints.push({
+          x: cx + (x - 100) * scale,
+          y: cy + (y - 100) * scale
+        });
+      }
+    }
+  }
+}
+
+/* ===== TEXT "joke" V LEVÉM KŘÍDLE ===== */
+function createJokePoints() {
+  jokePoints.length = 0;
+
+  // pozice: levé křídlo pod oblouček
+  const cx = canvas.width / 2 - canvas.width * 0.14;
+  const cy = canvas.height / 2 - canvas.height * 0.30;
+  const scale = Math.min(canvas.width, canvas.height) / 320;
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = 220;
+  tempCanvas.height = 120;
+  const tctx = tempCanvas.getContext('2d');
+
+  tctx.fillStyle = 'white';
+  tctx.font = 'bold 85px Arial';
+  tctx.textAlign = 'center';
+  tctx.textBaseline = 'middle';
+  tctx.fillText('joke', 110, 60);
+
+  const data = tctx.getImageData(0, 0, 220, 120).data;
+  for (let y = 0; y < 120; y += 2) {
+    for (let x = 0; x < 220; x += 2) {
+      if (data[(y * 220 + x) * 4 + 3] > 128) {
+        jokePoints.push({
+          x: cx + (x - 110) * scale,
+          y: cy + (y - 60) * scale
+        });
+      }
+    }
+  }
+}
+
+/* ===== TEXT "ofc" V LEVÉM KŘÍDLE ===== */
+function createOfCPoints() {
+  ofcPoints.length = 0;
+
+  // pozice: levé křídlo pod oblouček
+  const cx = canvas.width / 2 - canvas.width * -0.13;
+  const cy = canvas.height / 2 - canvas.height * 0.30;
+  const scale = Math.min(canvas.width, canvas.height) / 320;
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = 220;
+  tempCanvas.height = 120;
+  const tctx = tempCanvas.getContext('2d');
+
+  tctx.fillStyle = 'white';
+  tctx.font = 'bold 85px Arial';
+  tctx.textAlign = 'center';
+  tctx.textBaseline = 'middle';
+  tctx.fillText('ofc', 110, 60);
+
+  const data = tctx.getImageData(0, 0, 220, 120).data;
+  for (let y = 0; y < 120; y += 2) {
+    for (let x = 0; x < 220; x += 2) {
+      if (data[(y * 220 + x) * 4 + 3] > 128) {
+        ofcPoints.push({
+          x: cx + (x - 110) * scale,
+          y: cy + (y - 60) * scale
+        });
+      }
+    }
+  }
+}
+
+
+
+
+/* ===== TEXT "i love you" V CENTRU ===== */
+function createILoveYouPoints() {
+  iLoveYouPoints.length = 0;
+
+  // pozice: centrum
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2 + 50;
+  const scale = Math.min(canvas.width, canvas.height) / 300;
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = 400;
+  tempCanvas.height = 100;
+  const tctx = tempCanvas.getContext('2d');
+
+  tctx.fillStyle = 'white';
+  tctx.font = 'bold 80px Arial';
+  tctx.textAlign = 'center';
+  tctx.textBaseline = 'middle';
+  tctx.fillText('i love you', 200, 50);
+
+  const data = tctx.getImageData(0, 0, 400, 100).data;
+  for (let y = 0; y < 100; y += 2) {
+    for (let x = 0; x < 400; x += 2) {
+      if (data[(y * 400 + x) * 4 + 3] > 128) {
+        iLoveYouPoints.push({
+          x: cx + (x - 200) * scale,
+          y: cy + (y - 50) * scale
+        });
+      }
+    }
+  }
+}
+
+/* ===== TEXT "👑" NAD "i love you" ===== */
+function createCrownPoints() {
+  crownPoints.length = 0;
+
+  // pozice: nad "i love you"
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2 -150;
+  const scale = Math.min(canvas.width, canvas.height) / 300;
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = 100;
+  tempCanvas.height = 100;
+  const tctx = tempCanvas.getContext('2d');
+
+  tctx.fillStyle = 'white';
+  tctx.font = 'bold 80px Arial';
+  tctx.textAlign = 'center';
+  tctx.textBaseline = 'middle';
+  tctx.fillText('👑', 50, 50);
+
+  const data = tctx.getImageData(0, 0, 100, 100).data;
+  for (let y = 0; y < 100; y += 2) {
+    for (let x = 0; x < 100; x += 2) {
+      if (data[(y * 100 + x) * 4 + 3] > 128) {
+        crownPoints.push({
+          x: cx + (x - 50) * scale,
+          y: cy + (y - 50) * scale
+        });
+      }
+    }
+  }
+}
+
+/* ===== ČÁSTICE ===== */
+function createParticles() {
+  heartParticles = [];
+  for (let i = 0; i < heartCount; i++) {
+    const t = heartPoints[Math.floor(Math.random() * heartPoints.length)];
+    heartParticles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: 0, vy: 0,
+      size: Math.random() * 1.5 + 0.5,
+      target: t
+    });
+  }
+
+  sParticles = [];
+  jokeParticles = [];
+  ofcParticles = [];
+}
+
+/* ===== ANIMACE ===== */
+function animate() {
+  ctx.fillStyle = 'rgba(17,17,17,0.2)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // srdce
+  heartParticles.forEach(p => {
+    p.vx += (p.target.x - p.x) * 0.01;
+    p.vy += (p.target.y - p.y) * 0.01;
+    p.vx *= 0.9;
+    p.vy *= 0.9;
+    p.x += p.vx;
+    p.y += p.vy;
+
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // S (duhové)
+  sParticles.forEach(p => {
+    p.vx += (p.target.x - p.x) * 0.05;
+    p.vy += (p.target.y - p.y) * 0.05;
+    p.vx *= 0.8;
+    p.vy *= 0.8;
+    p.x += p.vx;
+    p.y += p.vy;
+    p.hue = (p.hue + 2) % 360;
+
+    ctx.fillStyle = `hsl(${p.hue},100%,50%)`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // joke (modré částice)
+  jokeParticles.forEach(p => {
+    p.vx += (p.target.x - p.x) * 0.05;
+    p.vy += (p.target.y - p.y) * 0.05;
+    p.vx *= 0.8;
+    p.vy *= 0.8;
+    p.x += p.vx;
+    p.y += p.vy;
+
+    ctx.fillStyle = '#2a6bff';
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // ofc (modré částice)
+  ofcParticles.forEach(p => {
+    p.vx += (p.target.x - p.x) * 0.05;
+    p.vy += (p.target.y - p.y) * 0.05;
+    p.vx *= 0.8;
+    p.vy *= 0.8;
+    p.x += p.vx;
+    p.y += p.vy;
+
+    ctx.fillStyle = '#2a6bff';
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // i love you (zlaté částice)
+  iLoveYouParticles.forEach(p => {
+    p.vx += (p.target.x - p.x) * 0.05;
+    p.vy += (p.target.y - p.y) * 0.05;
+    p.vx *= 0.8;
+    p.vy *= 0.8;
+    p.x += p.vx;
+    p.y += p.vy;
+
+    ctx.fillStyle = '#FFD700';
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // crown (zlaté částice)
+  crownParticles.forEach(p => {
+    p.vx += (p.target.x - p.x) * 0.05;
+    p.vy += (p.target.y - p.y) * 0.05;
+    p.vx *= 0.8;
+    p.vy *= 0.8;
+    p.x += p.vx;
+    p.y += p.vy;
+
+    ctx.fillStyle = '#FFD700';
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+createHeartPoints();
+createSPoints();
+createJokePoints();
+createOfCPoints();
+createILoveYouPoints();
+createCrownPoints();
+createParticles();
+animate();
+
+// Po 2 sekundách přidej S částice (animované)
+setTimeout(() => {
+  for (let i = 0; i < sCount; i++) {
+    const t = sPoints[Math.floor(Math.random() * sPoints.length)];
+    sParticles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: 0, vy: 0,
+      size: Math.random() * 1.5 + 0.5,
+      hue: Math.random() * 360,
+      target: t
+    });
+  }
+}, 2000);
+
+// Po dalších 2 sekundách přidej modré texty (animované)
+setTimeout(() => {
+  for (let i = 0; i < jokeCount; i++) {
+    const t = jokePoints[Math.floor(Math.random() * jokePoints.length)];
+    jokeParticles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: 0, vy: 0,
+      size: Math.random() * 1.6 + 0.6,
+      target: t
+    });
+  }
+  for (let i = 0; i < ofcCount; i++) {
+    const t = ofcPoints[Math.floor(Math.random() * ofcPoints.length)];
+    ofcParticles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: 0, vy: 0,
+      size: Math.random() * 1.6 + 0.6,
+      target: t
+    });
+  }
+
+  // Po 1 sekundě zmizí modré texty a objeví se "i love you" v zlaté
+  setTimeout(() => {
+    jokeParticles = [];
+    ofcParticles = [];
+    heartParticles = [];
+    sParticles = [];
+    for (let i = 0; i < iLoveYouCount; i++) {
+      const t = iLoveYouPoints[Math.floor(Math.random() * iLoveYouPoints.length)];
+      iLoveYouParticles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: 0, vy: 0,
+        size: Math.random() * 1.6 + 0.6,
+        target: t
+      });
+    }
+    for (let i = 0; i < crownCount; i++) {
+      const t = crownPoints[Math.floor(Math.random() * crownPoints.length)];
+      crownParticles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: 0, vy: 0,
+        size: Math.random() * 1.6 + 0.6,
+        target: t
+      });
+    }
+  }, 1000);
+}, 4000);
+
+window.addEventListener('resize', () => {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  createHeartPoints();
+  createSPoints();
+  createJokePoints();
+  createOfCPoints();
+  createILoveYouPoints();
+  createCrownPoints();
+  createParticles();
+});
+</script>
+</body>
+</html>
