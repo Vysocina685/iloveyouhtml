@@ -40,11 +40,11 @@ const iLoveYouPoints = [];
 const crownPoints = [];
 
 const heartCount = 2000;
-const sCount = 1000;
-const jokeCount = 600;
-const ofcCount = 1400;
+const sCount = 2500;
+const jokeCount = 5000;
+const ofcCount = 4000;
 const iLoveYouCount = 5000;
-const crownCount = 1500;
+const crownCount = 1000;
 
 /* ===== SRDCE ===== */
 function createHeartPoints() {
@@ -100,8 +100,8 @@ function createJokePoints() {
   jokePoints.length = 0;
 
   // pozice: levé křídlo pod oblouček
-  const cx = canvas.width / 2 - canvas.width * 0.14;
-  const cy = canvas.height / 2 - canvas.height * 0.30;
+  const cx = canvas.width / 2 - canvas.width * 0.30;
+  const cy = canvas.height / 2 - canvas.height * 0.100;
   const scale = Math.min(canvas.width, canvas.height) / 320;
 
   const tempCanvas = document.createElement('canvas');
@@ -133,8 +133,8 @@ function createOfCPoints() {
   ofcPoints.length = 0;
 
   // pozice: levé křídlo pod oblouček
-  const cx = canvas.width / 2 - canvas.width * -0.13;
-  const cy = canvas.height / 2 - canvas.height * 0.30;
+  const cx = canvas.width / 2 - canvas.width * -0.25;
+  const cy = canvas.height / 2 - canvas.height * 0.100;
   const scale = Math.min(canvas.width, canvas.height) / 320;
 
   const tempCanvas = document.createElement('canvas');
@@ -203,7 +203,7 @@ function createCrownPoints() {
 
   // pozice: nad "i love you"
   const cx = canvas.width / 2;
-  const cy = canvas.height / 2 -150;
+  const cy = canvas.height / 2 -50;
   const scale = Math.min(canvas.width, canvas.height) / 300;
 
   const tempCanvas = document.createElement('canvas');
@@ -212,7 +212,7 @@ function createCrownPoints() {
   const tctx = tempCanvas.getContext('2d');
 
   tctx.fillStyle = 'white';
-  tctx.font = 'bold 80px Arial';
+  tctx.font = 'bold 70px Arial';
   tctx.textAlign = 'center';
   tctx.textBaseline = 'middle';
   tctx.fillText('👑', 50, 50);
